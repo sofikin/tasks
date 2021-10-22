@@ -1,9 +1,11 @@
 const form = document.querySelector("form");
 const taskInput = document.querySelector("#task");
 const tasksList = document.querySelector(".collection");
+const delTasksBtn = document.querySelector("#del-tasks");
 
 form.addEventListener("submit", addTask);
 tasksList.addEventListener("click", deleteTask);
+delTasksBtn.addEventListener("click", deleteTasks);
 
 function addTask(e) {
   // input value
@@ -40,7 +42,15 @@ function addTask(e) {
 function deleteTask(e) {
   if (e.target.textContent == "x") {
     if (confirm("Do you want to delete this task?")) {
-      console.log(e.target.parentElement.remove());
+      e.target.parentElement.remove();
     }
+  }
+}
+
+function deleteTasks() {
+  // tasksList.innerHTML = "";
+  console.log();
+  while (tasksList.firstChild) {
+    tasksList.removeChild(tasksList.firstChild);
   }
 }
