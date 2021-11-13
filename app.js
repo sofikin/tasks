@@ -39,21 +39,22 @@ function addTask(e) {
 }
 
 function addTaskToLocalStorage(task) {
+  let tasks;
   if (localStorage.getItem("tasks") === null) {
     tasks = [];
   } else {
     tasks = JSON.parse(localStorage.getItem("tasks"));
   }
-  console.log(tasks);
   tasks.push(task);
   localStorage.setItem("tasks", JSON.stringify(tasks));
-  console.log(tasks);
 }
 
 function deleteTask(e) {
-  if (e.target.textContent == "x") {
+  if (e.target.textContent === "x") {
     if (confirm("Do you want to delete this task?")) {
       e.target.parentElement.remove();
+      task = e.target.parentElement.firstChild.textContent;
+      deleteTaskFromLocalStorage(task);
     }
   }
 }
@@ -63,4 +64,19 @@ function deleteTasks() {
   while (tasksList.firstChild) {
     tasksList.removeChild(tasksList.firstChild);
   }
+}
+
+function deleteTaskFromLocalStorage(task) {
+  let tasks;
+  if (localStorage.getItem("tasks") === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem("tasks"));
+  }
+  tasks.forEach(function (tasksElement, index) {
+    if (tasksElement === task) {
+      tasks.splice(index, 1);
+    }
+  });
+  localStorage.setItem("tasks", JSON.stringify(tasks));
 }
