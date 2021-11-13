@@ -64,6 +64,7 @@ function deleteTasks() {
   while (tasksList.firstChild) {
     tasksList.removeChild(tasksList.firstChild);
   }
+  deleteAllTaskFromLocalStorage();
 }
 
 function deleteTaskFromLocalStorage(task) {
@@ -79,4 +80,13 @@ function deleteTaskFromLocalStorage(task) {
     }
   });
   localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+function deleteAllTaskFromLocalStorage() {
+  // localStorage.clear();
+  if (localStorage.getItem("tasks") === null) {
+    let tasks = [];
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }
+  localStorage.removeItem("tasks");
 }
