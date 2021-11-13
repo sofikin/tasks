@@ -31,12 +31,23 @@ function addTask(e) {
   const ul = document.querySelector(".collection");
   // add <li> to <ul>
   ul.appendChild(li);
-
-  console.log(a);
-
+  // save task
+  addTaskToLocalStorage(task);
   // clear input value
   taskInput.value = "";
   e.preventDefault();
+}
+
+function addTaskToLocalStorage(task) {
+  if (localStorage.getItem("tasks") === null) {
+    tasks = [];
+  } else {
+    tasks = JSON.parse(localStorage.getItem("tasks"));
+  }
+  console.log(tasks);
+  tasks.push(task);
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+  console.log(tasks);
 }
 
 function deleteTask(e) {
@@ -49,7 +60,6 @@ function deleteTask(e) {
 
 function deleteTasks() {
   // tasksList.innerHTML = "";
-  console.log();
   while (tasksList.firstChild) {
     tasksList.removeChild(tasksList.firstChild);
   }
